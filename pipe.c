@@ -15,7 +15,7 @@ int main (int argc, char *argv[])
     //just one cmd, can just go dirtectly to console, no pipe
 
   }
-  for ( int i = 1; i < 2; i++ ) {
+  for ( int i = 1; i < argc; i++ ) {
     int fd[2];
     if ( pipe(fd) == -1 ) { return 1; }
     pid_t cid = fork();
