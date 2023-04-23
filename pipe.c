@@ -23,7 +23,7 @@ int main (int argc, char *argv[])
     if ( pipe(fd) == -1 ) { return 1; }
     pid_t cid = fork();
     if ( cid == 0 ){
-      if (execlp("ls", "ls", (char *) NULL) == -1) {
+      if (execlp(argv[i], argv[i], (char *) NULL) == -1) {
         return errno;
       }
     }
