@@ -17,8 +17,8 @@ int main (int argc, char *argv[])
       char cmd[] = argv[i];
       char * cArg = {NULL};
       char * const cEnvr = { "PATH=/bin", "USER=me", NULL };
-      printf(cmd,cArg,cEnvr)
-      execvp(cmd,cArg,cEnvr);
+      printf(cmd,cArg,cEnvr);
+      execvp(cmd,cEnvr);
     }
     waitpid(cid,NULL,0);
   }
