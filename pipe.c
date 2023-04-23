@@ -36,7 +36,7 @@ int main (int argc, char *argv[])
     waitpid(pid_array[0],NULL,0);
   // Print all child process PIDs
   printf("Child process PIDs:\n");
-  for (i = 0; i < pid_count; i++) {
+  for (int i = 0; i < pid_count; i++) {
       printf("%d\n", pid_array[i]);
   }
 
