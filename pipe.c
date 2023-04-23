@@ -9,16 +9,17 @@ int main (int argc, char *argv[])
   if ( argc < 2 ) {
     return 1;
   }
+  if (argc == 2 )
+  {
+    //just one cmd, can just go dirtectly to console, no pipe
+
+  }
   for ( int i = 1; i < argc; i++ ) {
     int fd[2];
     if ( pipe(fd) == -1 ) { return 1; }
     pid_t cid = fork();
     if ( cid == 0 ){
-      char cmd[] = argv[i];
-      char * cArg = {NULL};
-      char * const cEnvr = { "PATH=/bin", "USER=me", NULL };
-      printf(cmd,cArg,cEnvr);
-      execvp(cmd,cEnvr);
+      execve("/bin/%s",argv[i]);
     }
     waitpid(cid,NULL,0);
   }
