@@ -30,10 +30,10 @@ int main (int argc, char *argv[])
     else{
       pid_count++;
       pid_array = realloc(pid_array, pid_count * sizeof(pid_t));
-      pid_array[pid_count-1] = child_pid;
+      pid_array[pid_count-1] = cid;
     }
   }
-    waitpid(pid_array[0],NULL,0);
+  waitpid(pid_array[0],NULL,0);
   // Print all child process PIDs
   printf("Child process PIDs:\n");
   for (int i = 0; i < pid_count; i++) {
