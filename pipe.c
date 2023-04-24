@@ -52,7 +52,7 @@ int main (int argc, char *argv[])
     else{//child in between
       //get read and write fd and set to  stdin and stdout
     }
-    printf('-');
+    printf("loop");
   }
 
 
