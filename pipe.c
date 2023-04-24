@@ -8,7 +8,7 @@
 int main (int argc, char *argv[])
 {
   if ( argc < 2 ) {
-    exit(EXIT_FAILURE);
+    return 0;
   }
   if ( argc == 2 ){//only 1 cmd, no need for pipes
     pid_t cid = fork();
@@ -20,38 +20,43 @@ int main (int argc, char *argv[])
     wait(NULL);//TODO: add error handling
     return 0;
   }
-  pid_t *pid_array = NULL;
-  int pid_count = 0;
-  
 
-
+  //more than 1 cmd ( need pipes )
+  pid_t *pid_array = NULL; int pid_count = 0; //for later waiting 
   for ( int i = 1; i < argc; i++ ) {
-    int fd[2];
-    if ( pipe(fd) == -1 ) { return 1; }//[0] read [1] write
     if( i==1 ){//first child - input from parent’s stdin
-         
-    }
-    else if (i != argc-1){//last child - outputs to parent’s stdout
-
-    }
-    else{//child in between
-
-    }
-
-    pid_t cid = fork();
-    if ( cid == 0 ){
-      if (execlp(argv[i], argv[i], (char *) NULL) == -1) {
-        return errno;
+      int fd[2];
+      if ( pipe(fd) == -1 ) { return 1; }//[0] read [1] write
+      pid_t cid = fork();
+      if ( cid == 0 ){ // child call execlp
+        close(fd[0]);
+        dup2(fd[1],STDOUT_FILENO);
+        if (execlp(argv[i], argv[i], (char *) NULL) == -1) { return errno; }
+      }else{
+        pid_count++;
+        pid_array = realloc(pid_array, pid_count * sizeof(pid_t));
+        pid_array[pid_count-1] = cid;
+        close(fd[1]);//close write fd
       }
     }
-    else{
-      pid_count++;
-      pid_array = realloc(pid_array, pid_count * sizeof(pid_t));
-      pid_array[pid_count-1] = cid;
+    else if (i == argc-1){
+      //last child - outputs to parent’s stdout, wont use new pipe ( close? )
+      pid_t cid = fork();
+      if ( cid == 0 ){ // child call execlp
+        dup2(fd[1],STDIN_FILENO);
+        if (execlp(argv[i], argv[i], (char *) NULL) == -1) { return errno; }
+      }else{
+        pid_count++;
+        pid_array = realloc(pid_array, pid_count * sizeof(pid_t));
+        pid_array[pid_count-1] = cid;
+        close(fd[0]);//close read fd (end)
+      }
     }
+    else{//child in between
+      //get read and write fd and set to  stdin and stdout
+    }
+    
   }
-
-
 
 
 
