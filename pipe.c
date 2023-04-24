@@ -29,7 +29,7 @@ int main (int argc, char *argv[])
     if( i==1 ){//first child - input from parent’s stdin
          
     }
-    else if (){//last child - outputs to parent’s stdout
+    else if (i != argc-1){//last child - outputs to parent’s stdout
 
     }
     else{//child in between
