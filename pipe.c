@@ -48,12 +48,13 @@ int main (int argc, char *argv[])
       }else{
         pid_count++; pid_array = realloc(pid_array, pid_count * sizeof(pid_t)); pid_array[pid_count-1] = cid;
         close(fd[0]);//close read fd (end)
+        printf("lhere");
       }
+        printf("2here");
     }
-    /*
-    else{//child in between
-      //get read and write fd and set to  stdin and stdout
-    }
+    /* 
+      else{//child in between
+      //get read and write fd and set to  stdin and stdout}
     */
     printf("loop");
   }
