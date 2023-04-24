@@ -61,7 +61,7 @@ int main (int argc, char *argv[])
     printf("loop");
   }
 
-
+  /*
   //wait for all processes
   for (int i = 0; i < argc-1; i++) {
     int status;
@@ -77,6 +77,7 @@ int main (int argc, char *argv[])
   for (int i = 0; i < pid_count; i++) {
     //printf("%d\n", pid_array[i]);
   }
+  */
   // Free memory
   free(pid_array);
   return 0;
