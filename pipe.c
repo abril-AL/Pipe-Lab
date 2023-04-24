@@ -33,7 +33,7 @@ int main (int argc, char *argv[])
         dup2(fd[1],1);
         int err = execlp(argv[i], argv[i], (char *) NULL);   if (err == -1) { return errno; };
       }
-      dup2(pd[0], 0);//prev child output into input
+      dup2(fd[0], 0);//prev child output into input
       close(fd[1]);//close write
     }
     /* 
