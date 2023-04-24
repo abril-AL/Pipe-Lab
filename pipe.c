@@ -13,7 +13,7 @@ int main (int argc, char *argv[])
   if ( argc == 2 ){//only 1 cmd, no need for pipes
     pid_t cid = fork();
     if ( cid == 0 ){
-      if (execlp(argv[i], argv[i], (char *) NULL) == -1) {
+      if (execlp(argv[1], argv[1], (char *) NULL) == -1) {
         return errno;
       }
     }
