@@ -17,6 +17,7 @@ int main (int argc, char *argv[])
         return errno;
       }
     }
+    wait(NULL);//TODO: add error handling
     return 0;
   }
   pid_t *pid_array = NULL;
