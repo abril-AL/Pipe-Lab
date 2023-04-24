@@ -4,9 +4,11 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <errno.h>
+//TODO: add error handling(???)
 
 int main (int argc, char *argv[])
 {
+  int status = 0;
   if ( argc == 1 ) {
     return 0;
   }
@@ -18,7 +20,7 @@ int main (int argc, char *argv[])
         return errno;
       }
     }
-    wait(NULL);//TODO: add error handling(???)
+    wait(&status);
     return 0;
   }
 
@@ -38,7 +40,6 @@ int main (int argc, char *argv[])
     close(fd[1]);//close write
   }
   //run last cmd
-  int status = 0;
   for ( int i = 0; i < argc-1; i++){
     wait(&status);
   }
