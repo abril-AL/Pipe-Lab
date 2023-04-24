@@ -38,7 +38,9 @@ int main (int argc, char *argv[])
         close(fd[1]);//close write
       }
     }
-    else if (i == argc-1){//last child - outputs to , wont use new pipe ( close? )
+    if (i == argc-1){//last child - outputs to , wont use new pipe ( close? )
+      printf(i);
+      printf("\n");
       pid_t cid = fork();
       if ( cid == 0 ){ // child call execlp
         printf("last child\n");
