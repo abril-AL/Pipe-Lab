@@ -23,9 +23,10 @@ int main (int argc, char *argv[])
 
   //more than 1 cmd ( need pipes )
   pid_t *pid_array = NULL; int pid_count = 0; //for later waiting 
+  int fd[2];
   for ( int i = 1; i < argc; i++ ) {
     if( i==1 ){//first child - input from parent’s stdin
-      int fd[2];
+      
       if ( pipe(fd) == -1 ) { return 1; }//[0] read [1] write
       pid_t cid = fork();
       if ( cid == 0 ){ // child call execlp
