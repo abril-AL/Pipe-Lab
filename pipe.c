@@ -49,9 +49,11 @@ int main (int argc, char *argv[])
         close(fd[0]);//close read fd (end)
       }
     }
+    /*
     else{//child in between
       //get read and write fd and set to  stdin and stdout
     }
+    */
     printf("loop");
   }
 
