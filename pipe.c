@@ -17,6 +17,7 @@ int main (int argc, char *argv[])
         return errno;
       }
     }
+    return 0;
   }
   pid_t *pid_array = NULL;
   int pid_count = 0;
