@@ -14,7 +14,7 @@ int main (int argc, char *argv[])
     pid_t cid = fork();
     if ( cid == 0 ){
       if (execlp(argv[1], argv[1], (char *) NULL) == -1) {
-        printf("error: call to %s failed\n",argv[1]);
+        printf("1error: call to %s failed\n",argv[1]);
         return errno;
       }
     }
@@ -33,7 +33,7 @@ int main (int argc, char *argv[])
         dup2(fd[1],1);
         close(fd[0]);
         int err = execlp(argv[i], argv[i], (char *) NULL);
-        if (err == -1) { printf("error: call to %s failed\n",argv[1]); return errno; };
+        if (err == -1) { printf("2error: call to %s failed\n",argv[1]); return errno; };
       }
       dup2(fd[0], 0);//prev child output into input
       close(fd[1]);//close write
@@ -46,6 +46,6 @@ int main (int argc, char *argv[])
     wait(&status);
   }
   int err = execlp(argv[i], argv[i], (char *) NULL);   
-  if (err == -1) { printf("error: call to %s failed\n",argv[1]); return errno; };
+  if (err == -1) { printf("3error: call to %s failed\n",argv[1]); return errno; };
   return 0;
 }
