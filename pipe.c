@@ -21,27 +21,26 @@ int main (int argc, char *argv[])
     return 0;
   }
 
+  //more than 1 cmd ( need pipes )
+  int fd[2];
   int i;
-
-    for( i=1; i<argc-1; i++)
-    {
-        int pd[2];
-        pipe(pd);
-
-        if (!fork()) {
-            dup2(pd[1], 1); // remap output back to parent
-            execlp(argv[i], argv[i], NULL);
-            perror("exec");
-            abort();
-        }
-
-        // remap output from previous child to input
-        dup2(pd[0], 0);
-        close(pd[1]);
+  for ( i = 1; i < argc-1; i++ ) {
+    if( i == 1 ){//first child - input from parent’s stdin
+      if ( pipe(fd) == -1 ) { return 1; }//[0] read [1] write
+      pid_t cid = fork();
+      if ( cid == 0 ){ // child call execlp
+        dup2(fd[1],1);
+        close(fd[0]);
+        int err = execlp(argv[i], argv[i], (char *) NULL);
+        if (err == -1) { return errno; };
+      }
+      dup2(fd[0], 0);//prev child output into input
+      close(fd[1]);//close write
     }
-
-    execlp(argv[i], argv[i], NULL);
-    perror("exec");
-    abort();
-
+    
+  }
+  //run last cmd
+  int err = execlp(argv[i], argv[i], (char *) NULL);   
+  if (err == -1) { return errno; };
+  return 0;
 }
