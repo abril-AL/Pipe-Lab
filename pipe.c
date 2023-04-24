@@ -36,6 +36,7 @@ int main (int argc, char *argv[])
       }else{
         pid_count++; pid_array = realloc(pid_array, pid_count * sizeof(pid_t)); pid_array[pid_count-1] = cid;
         close(fd[1]);//close write
+        printf("wut");
       }
     }
     if (i == argc-1){//last child - outputs to , wont use new pipe ( close? )
