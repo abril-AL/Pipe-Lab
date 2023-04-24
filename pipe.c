@@ -44,7 +44,7 @@ int main (int argc, char *argv[])
       if ( cid == 0 ){ // child call execlp
         printf("last child\n");
         dup2(fd[1],STDIN_FILENO);
-        printf("$s\n",argv[i]);
+        printf("%s\n",argv[i]);
         if (execlp(argv[i], argv[i], (char *) NULL) == -1) { return errno; }
       }else{
         pid_count++; pid_array = realloc(pid_array, pid_count * sizeof(pid_t)); pid_array[pid_count-1] = cid;
