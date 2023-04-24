@@ -14,7 +14,7 @@ int main (int argc, char *argv[])
     pid_t cid = fork();
     if ( cid == 0 ){
       if (execlp(argv[1], argv[1], (char *) NULL) == -1) {
-        printf("error: call to %s failed",argv[1])
+        printf("error: call to %s failed",argv[1]);
         return 1;
       }
     }
