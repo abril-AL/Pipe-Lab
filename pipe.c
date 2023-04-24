@@ -41,7 +41,7 @@ int main (int argc, char *argv[])
   }
   //run last cmd
   int status = 0;
-  for ( int 1 = 0; i < argc-1; i++){
+  for ( int i = 0; i < argc-1; i++){
     wait(&status);
   }
   int err = execlp(argv[i], argv[i], (char *) NULL);   
