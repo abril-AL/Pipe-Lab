@@ -25,31 +25,27 @@ int main (int argc, char *argv[])
   pid_t *pid_array = NULL; int pid_count = 0; //for later waiting 
   int fd[2];
   for ( int i = 1; i < argc; i++ ) {
-    if( i==1 ){//first child - input from parent’s stdin
-      
+    if( i == 1 ){//first child - input from parent’s stdin
       if ( pipe(fd) == -1 ) { return 1; }//[0] read [1] write
       pid_t cid = fork();
       if ( cid == 0 ){ // child call execlp
+        printf("first child\n");
         close(fd[0]);
         dup2(fd[1],STDOUT_FILENO);
         if (execlp(argv[i], argv[i], (char *) NULL) == -1) { return errno; }
       }else{
-        pid_count++;
-        pid_array = realloc(pid_array, pid_count * sizeof(pid_t));
-        pid_array[pid_count-1] = cid;
-        close(fd[1]);//close write fd
+        pid_count++; pid_array = realloc(pid_array, pid_count * sizeof(pid_t)); pid_array[pid_count-1] = cid;
+        close(fd[1]);//close write
       }
     }
-    else if (i == argc-1){
-      //last child - outputs to parent’s stdout, wont use new pipe ( close? )
+    else if (i == argc-1){//last child - outputs to , wont use new pipe ( close? )
       pid_t cid = fork();
       if ( cid == 0 ){ // child call execlp
+        printf("last child\n");
         dup2(fd[1],STDIN_FILENO);
         if (execlp(argv[i], argv[i], (char *) NULL) == -1) { return errno; }
       }else{
-        pid_count++;
-        pid_array = realloc(pid_array, pid_count * sizeof(pid_t));
-        pid_array[pid_count-1] = cid;
+        pid_count++; pid_array = realloc(pid_array, pid_count * sizeof(pid_t)); pid_array[pid_count-1] = cid;
         close(fd[0]);//close read fd (end)
       }
     }
