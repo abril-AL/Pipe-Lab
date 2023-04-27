@@ -1,18 +1,17 @@
-## UID: 123456789
-(IMPORTANT: Only replace the above numbers with your true UID, do not modify spacing and newlines, otherwise your tarfile might not be created correctly)
+## UID: 605805712
 
 ## Pipe Up
 
-One sentence description
+This program replicates the effect of the | pipe in posix
 
 ## Building
 
-Explain briefly how to build your program
+To build, use `make`
 
 ## Running
 
-Show an example run of your program, using at least two additional arguments, and what to expect
+To run: `./pipe <cmd1> <cmd2> ... <cmdN>`
 
 ## Cleaning up
 
-Explain briefly how to clean up all binary files
+Use `make clean` to clean up

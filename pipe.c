@@ -45,5 +45,5 @@ int main (int argc, char *argv[])
   }
   int err = execlp(argv[i], argv[i], (char *) NULL);   
   if (err == -1) { printf("error: call to %s failed\n",argv[i]); return errno; };
-  return 0;
+  return 1;
 }
